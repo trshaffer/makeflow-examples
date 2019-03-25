@@ -1,47 +1,58 @@
 {
     "define": {
-        "MAXENT": "./tools/maxent.jar",
+        "MAXENT": "./maxent.jar",
         "JAVA": "java",
-        "PROCESS_POINTS": "./tools/process_points.py",
-        "PROJECTIONS": ["data/layers/worldclim"],
+        "PROCESS_POINTS": "./process_points.py",
+        "PROJECTIONS": ["worldclim"],
         "TAXA": [basename(t, ".csv") for t in listdir("points")],
-        "MODEL": "data/layers/worldclim",
+        "MODEL": "worldclim",
+        "FIXREF": "./fixref.sh",
     },
     "rules": [
         {
             "command": format(
-                "mkdir -p outputs && %s points/%s.csv outputs/%s.csv",
+                "%s points_%s.csv outputs_%s.csv",
                 PROCESS_POINTS, t, t
             ),
             "outputs": [
-                format("outputs/%s.csv", t),
+                format("outputs_%s.csv", t),
             ],
             "inputs": [
-                format("points/%s.csv", t),
+                format("points_%s.csv", t),
                 PROCESS_POINTS,
             ],
         } for t in TAXA, {
             "command": format(
-                "mkdir -p outputs/%s && %s -cp %s density.MaxEnt -s outputs/%s.csv -e %s -o outputs/%s nowarnings nocache autorun -z",
+                "%s && mkdir -p outputs_%s && %s -cp %s density.MaxEnt -s outputs_%s.csv -e %s -o outputs_%s nowarnings nocache autorun -z && touch outputs_%s/%s.lambdas && cp outputs_%s/%s.lambdas outputs_%s_%s.lambdas",
+                FIXREF,
                 t,
                 JAVA,
                 MAXENT,
                 t,
                 MODEL,
+                t,
+                t,
+                t,
+                t,
+                t,
+                t,
                 t
             ),
             "inputs": [
                 MAXENT,
+                FIXREF,
                 #JAVA,
-                MODEL,
-                format("outputs/%s.csv", t)
+                "alt." + MODEL,
+                format("bio%d.%s", i, MODEL) for i in range(1,20),
+                format("outputs_%s.csv", t),
             ],
             "outputs": [
-                format("outputs/%s", t),
+                format("outputs_%s_%s.lambdas", t, t),
             ],
         } for t in TAXA, {
             "command": format(
-                "%s -cp %s density.Project outputs/%s/%s.lambdas %s outputs/%s_%s.asc nowarnings nocache autorun -z; touch outputs/%s_%s.asc; touch outputs/%s_%s_clamping.asc",
+                "%s && %s -cp %s density.Project outputs_%s_%s.lambdas %s outputs_%s_%s.asc nowarnings nocache autorun -z; touch outputs_%s_%s.asc; touch outputs_%s_%s_clamping.asc",
+                FIXREF,
                 JAVA,
                 MAXENT,
                 t,
@@ -55,15 +66,18 @@
                 basename(p)
             ),
             "outputs": [
-                format("outputs/%s_%s.asc", t, basename(p)),
-                format("outputs/%s_%s_clamping.asc", t, basename(p))
+                format("outputs_%s_%s.asc", t, basename(p)),
+                format("outputs_%s_%s_clamping.asc", t, basename(p))
             ],
             "inputs": [
+                FIXREF,
                 MAXENT,
                 #JAVA,
-                MODEL,
-                p,
-                format("outputs/%s", t),
+                "alt." + MODEL,
+                format("bio%d.%s", i, MODEL) for i in range(1,20),
+                "alt." + p,
+                format("bio%d.%s", i, p) for i in range(1,20),
+                format("outputs_%s_%s.lambdas", t, t),
             ]
         } for t in TAXA for p in PROJECTIONS,
     ],

@@ -33,7 +33,10 @@ if __name__ == '__main__':
             if len(chunk) < POINTS_THRESHOLD:
                 continue
             chunk_fn = os.path.join('points', '{}.csv'.format(name))
+            flat_fn = 'points_{}.csv'.format(name)
             with open(chunk_fn, 'w') as out_f:
+                pass
+            with open(flat_fn, 'w') as out_f:
                 out = csv.writer(out_f)
                 for l in chunk:
                     out.writerow([name] + l[14:16])

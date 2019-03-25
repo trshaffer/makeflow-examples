@@ -49,4 +49,4 @@ and three projection scenarios each.
 
 This example consists of 3145 rules and runs all three projection scenarios.
 
-    makeflow --jx-define 'PROJECTIONS=["data/layers/" + x for x in listdir("data/layers")]' --jx lifemapper.jx
+    makeflow --jx-define 'PROJECTIONS=["worldclim","mid","lgm"]' --jx lifemapper.jx
