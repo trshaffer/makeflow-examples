@@ -32,8 +32,8 @@ if __name__ == '__main__':
             chunk = list(lines)
             if len(chunk) < POINTS_THRESHOLD:
                 continue
-            chunk_fn = os.path.join('points', '{}.csv'.format(name))
-            flat_fn = 'points_{}.csv'.format(name)
+            chunk_fn = os.path.join('points', '%s.csv' % name)
+            flat_fn = 'points_%s.csv' % name
             with open(chunk_fn, 'w') as out_f:
                 pass
             with open(flat_fn, 'w') as out_f:
