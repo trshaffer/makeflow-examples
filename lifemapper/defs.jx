@@ -1,0 +1,9 @@
+{
+    "MAXENT": "./maxent.jar",
+    "JAVA": "java",
+    "PROCESS_POINTS": "./process_points.py",
+    "PROJECTIONS": ["worldclim", "mid", "lgm"],
+    "MODEL": "worldclim",
+    "FIXREF": "./fixref.sh",
+    "TAXA_LIST": "taxa.json",
+}

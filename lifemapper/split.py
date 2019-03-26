@@ -44,8 +44,10 @@ if __name__ == '__main__':
                 for l in c:
                     out.writerow([name] + l[14:16])
 
+    chunked_taxa = list(chunk(taxa_names, CHUNK_SIZE))
     json.dump(
         {
             "TAXA": taxa_names,
-            "CHUNKS": list(chunk(taxa_names, CHUNK_SIZE)),
+            "CHUNK_COUNT": len(chunked_taxa),
+            "CHUNKS": chunked_taxa,
         }, sys.stdout, indent=2)

@@ -1,0 +1,20 @@
+{
+    "rules": [
+        {
+            "command": format("makeflow --jx lifemapper.jx --jx-args defs.jx --jx-args taxa.json --jx-define 'TAXA=CHUNKS[%d]'", i),
+            "outputs": [
+                format("outputs_%s_%s.asc", t, basename(p)) for p in PROJECTIONS for t in CHUNKS[i],
+                format("outputs_%s_%s_clamping.asc", t, basename(p)) for p in PROJECTIONS for t in CHUNKS[i]
+            ],
+            "inputs": [
+                format("points_%s.csv", t) for t in TAXA,
+                PROCESS_POINTS,
+                MAXENT,
+                FIXREF,
+                TAXA_LIST,
+                "alt." + p for p in PROJECTIONS,
+                format("bio%d.%s", i, p) for i in range(1,20) for p in PROJECTIONS,
+            ],
+        } for i in range(CHUNK_COUNT)
+    ],
+}

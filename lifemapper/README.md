@@ -38,7 +38,7 @@ This example processes a small dataset and only one model/projection scenario wi
 
 To run it, make sure Makeflow is in your `$PATH` and type
 
-    makeflow --jx lifemapper.jx --jx-args taxa.json --jx-define 'PROJECTIONS=["worldclim"]'
+    makeflow --jx lifemapper.jx --jx-args defs.jx --jx-args taxa.json --jx-define 'PROJECTIONS=["worldclim"]'
 
 ## Larger Example
 
@@ -49,4 +49,9 @@ and three projection scenarios each.
 
 This example consists of 3145 rules and runs all three projection scenarios.
 
-    makeflow --jx lifemapper.jx --jx-args taxa.json
+    makeflow --jx lifemapper.jx --jx-args defs.jx --jx-args taxa.json
+
+## Coarse-grained Chunks
+
+To run chunks of taxa as sub-Makeflows on the worker nodes,
+replace `lifemapper.jx` with `coarse.jx` in the previous lines.
