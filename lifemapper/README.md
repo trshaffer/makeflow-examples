@@ -34,19 +34,19 @@ You can also download Java [here](https://java.com/en/download/manual.jsp).
 
 This example processes a small dataset and only one model/projection scenario with 183 rules in the workflow.
 
-    python split.py data/points/small.csv
+    python split.py data/points/small.csv > taxa.json
 
 To run it, make sure Makeflow is in your `$PATH` and type
 
-    makeflow --jx lifemapper.jx
+    makeflow --jx lifemapper.jx --jx-args taxa.json --jx-define 'PROJECTIONS=["worldclim"]'
 
 ## Larger Example
 
 This example runs on a larger dataset with a model scenario
 and three projection scenarios each.
 
-    python split.py data/points/large.csv
+    python split.py data/points/large.csv > taxa.json
 
 This example consists of 3145 rules and runs all three projection scenarios.
 
-    makeflow --jx-define 'PROJECTIONS=["worldclim","mid","lgm"]' --jx lifemapper.jx
+    makeflow --jx lifemapper.jx --jx-args taxa.json
