@@ -14,7 +14,7 @@
             ],
         } for t in TAXA, {
             "command": format(
-                "%s && mkdir -p outputs_%s && %s -cp %s density.MaxEnt -s outputs_%s.csv -e %s -o outputs_%s nowarnings nocache autorun -z && touch outputs_%s/%s.lambdas && cp outputs_%s/%s.lambdas outputs_%s_%s.lambdas",
+                "%s && mkdir -p outputs_%s && %s -cp %s density.MaxEnt -s outputs_%s.csv -e %s -o outputs_%s nowarnings nocache autorun -z; touch outputs_%s/%s.lambdas && cp outputs_%s/%s.lambdas outputs_%s_%s.lambdas",
                 FIXREF,
                 t,
                 JAVA,
