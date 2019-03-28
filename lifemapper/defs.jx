@@ -7,4 +7,5 @@
     "FIXREF": "./fixref.sh",
     "TAXA_LIST": "taxa.json",
     "DEFS_FILE": "defs.jx",
+    "WORKFLOW": "lifemapper.jx",
 }

@@ -14,6 +14,7 @@
                 FIXREF,
                 DEFS_FILE,
                 TAXA_LIST,
+                WORKFLOW,
                 "alt." + p for p in PROJECTIONS,
                 format("bio%d.%s", i, p) for i in range(1,20) for p in PROJECTIONS,
             ],
