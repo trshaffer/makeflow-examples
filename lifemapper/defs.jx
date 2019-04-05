@@ -1,7 +1,7 @@
 {
-    "CORES": 4,
-    "MEMORY": 1024,
-    "DISK": 1024,
+    "CORES": 12,
+    "MEMORY": 4096,
+    "DISK": 4096,
     "MAXENT": "./maxent.jar",
     "JAVA": "java",
     "PROCESS_POINTS": "./process_points.py",
