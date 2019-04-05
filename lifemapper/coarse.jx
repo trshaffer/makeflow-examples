@@ -10,7 +10,7 @@
     },
     "rules": [
         {
-            "command": format("%s --jx %s --jx-args defs.jx --jx-args taxa.json --jx-define 'TAXA=CHUNKS[%d]' --jx-define CORES=1 --jx-define MEMORY=128 --jx-define DISK=128 -dall > err.%d 2>&1", MAKEFLOW, WORKFLOW, i, i),
+            "command": format("%s -r 0 --jx %s --jx-args defs.jx --jx-args taxa.json --jx-define 'TAXA=CHUNKS[%d]' --jx-define CORES=1 --jx-define MEMORY=128 --jx-define DISK=128 -dall > err.%d 2>&1", MAKEFLOW, WORKFLOW, i, i),
             "outputs": [
                 format("err.%d", i),
                 format("outputs_%s_%s.asc", t, basename(p)) for p in PROJECTIONS for t in CHUNKS[i],
